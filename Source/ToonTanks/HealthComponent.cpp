@@ -21,14 +21,20 @@ void UHealthComponent::BeginPlay()
 	// Initialization - Health
 	Health = MaxHealth;
 
-	// ...
+	// Initialize Damage behavior with delegate function
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);
 
 }
 
 void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigator, AActor* DamageCauser)
 {
+	if (Damage <= 0) return;
+	
+	// Apply damage
+	Health -= Damage;
 
+	UE_LOG(LogTemp, Warning, TEXT("DamagedActor: %s"), *DamagedActor->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);
 }
 
 // Called every frame
