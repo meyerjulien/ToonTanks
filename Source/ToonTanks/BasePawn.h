@@ -18,6 +18,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float HealthPoint = 100.00;
 
+	void HandleDestruction();
+
 protected:
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
