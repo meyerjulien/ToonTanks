@@ -39,6 +39,12 @@ void AProjectile::BeginPlay()
 	
 	// Initialize Hit Event with delegate function
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+
+	// Play sound when projectile spawns, ie: when it's being shot
+	if (ShootSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, ShootSound, GetActorLocation());
+	}
 }
 
 // Called every frame
@@ -63,10 +69,15 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
-		
+
+		if (HitSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
+		}
+
 		if (HitParticles)
 		{
-			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitParticles, GetActorLocation(), GetActorRotation());
+			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles, GetActorLocation(), GetActorRotation());
 		}
 	}
 	Destroy();

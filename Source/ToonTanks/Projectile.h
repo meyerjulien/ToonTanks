@@ -42,4 +42,10 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "03 - VFX")
 	class UParticleSystem* HitParticles;
+
+	UPROPERTY(EditAnywhere, Category = "03 - VFX")
+	class USoundBase* ShootSound;
+
+	UPROPERTY(EditAnywhere, Category = "03 - VFX")
+	USoundBase* HitSound;
 };
