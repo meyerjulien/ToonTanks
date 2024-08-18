@@ -20,14 +20,21 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	// The two functions StartGame() and GameOver() are automatically detected by Unreal Engine
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartGame();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver(bool bWonGame);
 
 private:
 	class ATank* Tank;
 	class AToonTanksPlayerController* ToonTanksPlayerController;
 
-	float StartDelay = 3.f;
+	float StartDelay = 4.f;
 
 	void HandleGameStart();
+
+	int32 TargetTowers = 0;
+	int32 GetTargetTowerCount();
 };
