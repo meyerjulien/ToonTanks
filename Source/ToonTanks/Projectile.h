@@ -36,4 +36,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "02 - Combat")
 	float Damage = 50.f;
+
+	UPROPERTY(EditAnywhere, Category = "03 - VFX")
+	class UParticleSystem* HitParticles;
 };

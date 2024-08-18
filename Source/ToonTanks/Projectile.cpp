@@ -20,9 +20,12 @@ AProjectile::AProjectile()
 
 	// Add movement to components
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
-	ProjectileMovementComponent->InitialSpeed = 2000.f;
-	ProjectileMovementComponent->MaxSpeed = 2000.f;
-	ProjectileMovementComponent->ProjectileGravityScale = 0.0f;
+	ProjectileMovementComponent->InitialSpeed = 1000.f;
+	ProjectileMovementComponent->MaxSpeed = 1500.f;
+	ProjectileMovementComponent->bRotationFollowsVelocity = true;
+	ProjectileMovementComponent->bShouldBounce = true;
+	ProjectileMovementComponent->Bounciness = 0.3f;
+	ProjectileMovementComponent->ProjectileGravityScale = 1.0f;
 }
 
 // Called when the game starts or when spawned
@@ -44,7 +47,11 @@ void AProjectile::Tick(float DeltaTime)
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	auto MyOwner = GetOwner();
-	if (MyOwner == nullptr) return;
+	if (MyOwner == nullptr)
+	{
+		Destroy();
+		return;
+	}
 
 	auto MyOwnerInstigator = MyOwner->GetInstigatorController();
 	auto DamageTypeClass = UDamageType::StaticClass();
@@ -52,7 +59,12 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
-		Destroy();
+		
+		if (HitParticles)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitParticles, GetActorLocation(), GetActorRotation());
+		}
 	}
+	Destroy();
 }
 
