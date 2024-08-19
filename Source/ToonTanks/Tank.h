@@ -24,6 +24,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void HandleDestruction();
+	bool bAlive = true;
 
 	APlayerController* GetTankPlayerController() const { return TankPlayerController; };
 
@@ -32,16 +33,16 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "01- Components", meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* SpringArm;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "01 - Components", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* Camera;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "02 - Movement", meta = (AllowPrivateAccess = "true"))
 	float Speed = 100;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "02 - Movement", meta = (AllowPrivateAccess = "true"))
 	float TurnRate = 100;
 
 	APlayerController*	TankPlayerController;

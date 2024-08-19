@@ -47,4 +47,10 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "03 - VFX")
 	class USoundBase* DeathSound;
+
+	UPROPERTY(EditAnywhere, Category = "03 - VFX")
+	TSubclassOf<class UCameraShakeBase> DeathCameraShakeClass;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "01 - Components", meta = (AllowPrivateAccess = "true"))
+	class UParticleSystemComponent* MovementTrailParticles;
 };

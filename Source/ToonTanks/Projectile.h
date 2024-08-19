@@ -48,4 +48,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "03 - VFX")
 	USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, Category = "03 - VFX")
+	TSubclassOf<class UCameraShakeBase> HitCameraShakeClass;
 };
